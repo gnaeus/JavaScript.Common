@@ -1,3 +1,25 @@
+__`function downloadFile(url: string, onError: Function): void`__  
+Download file without explicitely clicking on link.
+
+__`function fetchJson(url: string, data?: Object, method?: HttpVerb): Promise<void>`__  
+__`function fetchJson<TResponse>(url: string, data?: Object, method?: HttpVerb): Promise<TResponse>`__  
+Fetch JSON from specified URL or throw `FetchError`.
+
+__`function fetchFormData(url: string, formData: FormData): Promise<void>`__  
+__`function fetchFormData<TResponse>(url: string, formData: FormData): Promise<TResponse>`__  
+Post `FormData` to specified URL then read JSON or throw `FetchError`.
+
+```js
+interface FetchError extends Error {
+    statusCode: number;
+    statusText: string;
+    response: Response;
+}
+```
+
+__`function formatPhoneNumber(number: string): string`__  
+Pretty print phone number.
+
 __`function hash(str: string): number`__  
 32-bit hash of string. If string contains number it returns this number.
 
