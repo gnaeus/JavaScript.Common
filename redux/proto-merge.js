@@ -1,7 +1,7 @@
 /**
  * Speedup Redux normalized state 'byId' object transformation
  */
-function protoMerge(source, changes, mergeThreshold = 100) {
+export function protoMerge(source, changes, mergeThreshold = 100) {
   let result;
   const proto = Object.getPrototypeOf(source);
 
@@ -17,7 +17,7 @@ function protoMerge(source, changes, mergeThreshold = 100) {
       // если размер объекта source меньше порогового значения
       // - копируем только собственные свойства объекта source
       for (let i = 0; i < sourceLength; i++) {
-        const key = sourceKeys[i]
+        const key = sourceKeys[i];
         result[key] = source[key];
       }
     } else {
