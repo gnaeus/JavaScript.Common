@@ -1,4 +1,4 @@
-ko.bindingProvider.instance.preprocessNode = function (node) {
+ko.bindingProvider.instance.preprocessNode = function(node) {
   if (node.nodeType === 1) {
     var attributes = node.attributes;
     var length = attributes.length;

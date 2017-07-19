@@ -9,7 +9,7 @@ export const Attributes = {
   UnsupportedSymbol: "data-val-unsupported-symbol",
   IncorrectPhone: "data-val-incorrect-phone",
   NotFound: "data-val-not-found",
-  NumbersRepeated: "data-val-numbers-repeated",
+  NumbersRepeated: "data-val-numbers-repeated"
 };
 
 export class Validator {
@@ -31,13 +31,15 @@ export class Validator {
   /**
    * Результирующее сообщение об ошибке, которое отображается в DOM
    */
-  @computed get Error() {
+  @computed
+  get Error() {
     return this.CustomError || this._getValidationError();
   }
   /**
    * Является ли соответствующее свойство модели данных валидным
    */
-  @computed get IsValid() {
+  @computed
+  get IsValid() {
     return !this.Error;
   }
 
@@ -63,8 +65,12 @@ export class Validator {
   /**
    * Инициализарует валидатор с помощью списка пар (условие валидации, имя соответствующее атрибута ошибки)
    */
-  constructor(conditionFirst: () => boolean, attributeNameFirst: string,
-              conditionSecond: () => boolean, attributeNameSecond: string);
+  constructor(
+    conditionFirst: () => boolean,
+    attributeNameFirst: string,
+    conditionSecond: () => boolean,
+    attributeNameSecond: string
+  );
 
   /**
    * Инициализарует валидатор с помощью списка пар (условие валидации, имя соответствующее атрибута ошибки)
@@ -107,7 +113,7 @@ export class Validator {
    * Сообщения становятся доступны после выполнения "validator"-биндинга.
    */
   messageFor(attributeName: string) {
-    return this._attributeMessages[attributeName] || new String("") as string;
+    return this._attributeMessages[attributeName] || (new String("") as string);
   }
 
   /**
@@ -120,55 +126,68 @@ export class Validator {
   }
 }
 
-  /**
+/**
    * Преобразовать произвольную коллекцию элементов (например NodeList) в Array
    */
-  const toArray: <T>(items: ArrayLike<T>) => T[] = Function.prototype.call.bind(Array.prototype.slice);
+const toArray: <T>(items: ArrayLike<T>) => T[] = Function.prototype.call.bind(Array.prototype.slice);
 
-  ko.bindingHandlers["validator"] = {
-    init(element: Element, valueAccessor) {
-      const $container = $(element);
-      const $input = $("input, textarea", $container);
-      const $message = $("[validation-for]", $container);
+ko.bindingHandlers["validator"] = {
+  init(element: Element, valueAccessor) {
+    const $container = $(element);
+    const $input = $("input, textarea", $container);
+    const $message = $("[validation-for]", $container);
 
-      const validator = ko.unwrap(valueAccessor()) as Validator;
+    const validator = ko.unwrap(valueAccessor()) as Validator;
 
-      // заполнить словарь сообщений валидатора значениями из "data-val-" аттрибутов
-      const attributeMessages = (validator as any)._attributeMessages;
-      
-      toArray($message.get(0).attributes)
-        .filter(a => a.name.indexOf("data-val-") === 0)
-        .forEach(a => { attributeMessages[a.name] = a.value; });
-      
-      $input
-        .on("focus", () => { validator.HasFocus = true; })
-        .on("blur", () => { validator.HasFocus = false; })
-        .on("input", () => { validator.WasChanged = true; })
-        .on("keypress", () => { validator.WasChanged = true; });
+    // заполнить словарь сообщений валидатора значениями из "data-val-" аттрибутов
+    const attributeMessages = (validator as any)._attributeMessages;
 
-      // если в контейнере произошло нажатие мышки на элементе автокомплита
-      $container.on("mousedown", "ul li", (event) => {
-        // считаем что поле ввода не потеряло фокус
-        $input.one("blur", () => { validator.HasFocus = true; });
-        // пока пользователь не отпустит клавишу мышки
-        $(document).one("mouseup", () => { validator.HasFocus = false; });
+    toArray($message.get(0).attributes).filter(a => a.name.indexOf("data-val-") === 0).forEach(a => {
+      attributeMessages[a.name] = a.value;
+    });
+
+    $input
+      .on("focus", () => {
+        validator.HasFocus = true;
+      })
+      .on("blur", () => {
+        validator.HasFocus = false;
+      })
+      .on("input", () => {
+        validator.WasChanged = true;
+      })
+      .on("keypress", () => {
+        validator.WasChanged = true;
       });
 
-      // подождать, пока выплонится binding на <input>
-      ko.tasks.schedule(() => {
-        // если <input> не пустое
-        if ($input.val()) {
-          // значит соответствующее значение модели было изменено ранее
-          validator.WasChanged = true;
-        }
+    // если в контейнере произошло нажатие мышки на элементе автокомплита
+    $container.on("mousedown", "ul li", event => {
+      // считаем что поле ввода не потеряло фокус
+      $input.one("blur", () => {
+        validator.HasFocus = true;
       });
+      // пока пользователь не отпустит клавишу мышки
+      $(document).one("mouseup", () => {
+        validator.HasFocus = false;
+      });
+    });
 
-      // расположить сообщение валидации по цнтру под полем ввода
-      // $message.css({ "left": "0", "margin-left": "0" });
-      // const messageMarginTop = parseInt($message.css("margin-top"));
+    // подождать, пока выплонится binding на <input>
+    ko.tasks.schedule(() => {
+      // если <input> не пустое
+      if ($input.val()) {
+        // значит соответствующее значение модели было изменено ранее
+        validator.WasChanged = true;
+      }
+    });
 
-      // обработчик, который применяет изменения к DOM при изменении состояния валидатора
-      ko.computed(() => {
+    // расположить сообщение валидации по цнтру под полем ввода
+    // $message.css({ "left": "0", "margin-left": "0" });
+    // const messageMarginTop = parseInt($message.css("margin-top"));
+
+    // обработчик, который применяет изменения к DOM при изменении состояния валидатора
+    ko.computed(
+      () => {
         if (!validator.IsValid && !validator.HasFocus && validator.WasChanged) {
           $container.addClass("invalid");
           $message.text(validator.Error);
@@ -186,6 +205,9 @@ export class Validator {
 
           // $container.css({ "margin-bottom": "" });
         }
-      }, null, { disposeWhenNodeIsRemoved: element });
-    }
-  };
+      },
+      null,
+      { disposeWhenNodeIsRemoved: element }
+    );
+  }
+};

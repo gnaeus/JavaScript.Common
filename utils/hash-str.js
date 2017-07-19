@@ -3,11 +3,11 @@
  */
 export function hash(str) {
   const type = typeof str;
-  if (type === 'number') {
+  if (type === "number") {
     return str;
   }
-  if (type !== 'string') {
-    str += '';
+  if (type !== "string") {
+    str += "";
   }
   // test for UInt32 by regex
   if (/^(0|[1-9]\d*)$/.test(str)) {
@@ -19,11 +19,11 @@ export function hash(str) {
   if (num === int) {
     return int;
   }
-  
+
   let hash = 0;
   for (let i = 0, len = str.length; i < len; ++i) {
-      const c = str.charCodeAt(i);
-      hash = (((hash << 5) - hash) + c) | 0;
+    const c = str.charCodeAt(i);
+    hash = ((hash << 5) - hash + c) | 0;
   }
-  return hash; 
+  return hash;
 }

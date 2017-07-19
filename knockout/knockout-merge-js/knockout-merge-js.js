@@ -2,7 +2,7 @@ var hasOwnProperty = Function.prototype.call.bind(Object.prototype.hasOwnPropert
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor.bind(Object);
 var getPrototypeOf = Object.getPrototypeOf.bind(Object);
 
-ko.mergeJS = function (target, source, options) {
+ko.mergeJS = function(target, source, options) {
   var exclude = Object.create(null);
   if (options && options.exclude) {
     for (var i = 0; i < options.exclude.length; ++i) {
@@ -30,13 +30,13 @@ ko.mergeJS = function (target, source, options) {
           var hasSetter = false;
           var prototype = target;
           // обходим всю цепочку прототипов
-          while (prototype = getPrototypeOf(prototype)) {
+          while ((prototype = getPrototypeOf(prototype))) {
             // если в prototype уже есть такое поле
             if (hasOwnProperty(prototype, prop)) {
               var descriptor = getOwnPropertyDescriptor(prototype, prop);
               // если поле — это простое поле или имеет сеттер
               if (descriptor.writable || descriptor.set) {
-                  hasSetter = true;
+                hasSetter = true;
               }
               break;
             }

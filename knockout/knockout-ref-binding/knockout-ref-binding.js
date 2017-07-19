@@ -1,5 +1,5 @@
 ko.bindingHandlers.ref = {
-  init: function (element, valueAccessor, allBindings, viewModel) {
+  init: function(element, valueAccessor, allBindings, viewModel) {
     var handler = valueAccessor();
     if (typeof handler === "function") {
       handler.call(viewModel, element);
