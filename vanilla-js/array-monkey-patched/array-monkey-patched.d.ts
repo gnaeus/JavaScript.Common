@@ -38,6 +38,18 @@ interface Array<T> {
    */
   toLookup(keySelector: (value: T, index: number, array: T[]) => number, thisArg?: any): NumberMap<T[]>;
   toLookup(keySelector: (value: T, index: number, array: T[]) => any, thisArg?: any): StringMap<T[]>;
+
+  /**
+   * Updates the array of some class instances from an array of some plain objects with matching keys.
+   */
+  updateFrom<M>(models: M[]): {
+    withKeys<K>(
+      modelKeySelector: (model: M, index: number) => K,
+      entityKeySelector: (entity: T, index: number) => K,
+    ): {
+      mapValues(mapModelToEntity: (model: M, entity: T) => T): void;
+    };
+  }
 }
 
 interface Grouping<K, T> extends Array<T> {

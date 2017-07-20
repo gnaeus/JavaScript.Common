@@ -18,6 +18,7 @@
   _define("orderBy", orderBy);
   _define("toDictionary", toDictionary);
   _define("toLookup", toLookup);
+  _define("updateFrom", updateFrom);
 
   function groupBy(keySelector, thisArg) {
     var hashTable = Object.create(null);
@@ -105,5 +106,43 @@
       group.push(element);
     }
     return lookup;
+  }
+
+  function updateFrom(models) {
+    if (models == null) {
+      models = [];
+    }
+
+    var entities = this;
+
+    return {
+      withKeys: function (modelKeySelector, entityKeySelector) {
+        return {
+          mapValues: function (mapModelToEntity) {
+            var modelsLength = models.length;
+            var entitiesLength = entities.length;
+            var entityLookup = Object.create(null);
+            
+            for (var i = 0; i < entitiesLength; i++) {
+              var entity = entities[i];
+              var key = entityKeySelector(entity, i);
+              entityLookup[key] = entity;
+            }
+
+            entities.length = 0;
+
+            for (var i = 0; i < modelsLength; i++) {
+              var model = models[i];
+              var key = modelKeySelector(model, i);
+              var entity = entityLookup[key];
+
+              entities.push(mapModelToEntity(model, entity));
+            }
+
+            return entities;
+          }
+        };
+      },
+    };
   }
 })();
