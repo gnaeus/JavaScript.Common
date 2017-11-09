@@ -42,6 +42,12 @@ object == {
 };
 ```
 
+__`function whenContains(container: Element | string, selector: string): Promise<void>`__
+Run `callback` when `selector` will be inserted to `container`.
+
+__`function whenContains(container: Element | string, selector: string, callback: () => void): void`__
+Returns Promise that resolved when `selector` will be inserted to `container`.
+
 __`function zIndexMaxInContext(node: Element): number`__  
 Максимальное значение `z-index` внутри контекста наложения, к которому принадлежит `node`.  
 Значения `z-index` в других контекстах наложения игнорируются.
