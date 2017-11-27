@@ -1,0 +1,59 @@
+__`store.js`__
+```js
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import thunkMiddleware from "redux-thunk";
+import watcherMiddleware from "watcher-middleware";
+import myData, { myDataWatcher } from "./myData";
+
+const rootReducer = combineReducers({
+  myData,
+});
+
+const allWatchers = [
+  myDataWatcher,
+];
+
+const store = createStore(
+  rootReducer, initialState,
+  applyMiddleware(
+    thunkMiddleware,
+    watcherMiddleware(allWatchers),
+  ),
+);
+```
+__`myData/index.js`__
+```js
+const MY_DATA_LOADED = "MY_DATA_LOADED";
+
+export function myDataReducer(state = null, action) {
+  switch (action.type) {
+    case MY_DATA_LOADED: {
+      return action.payload;
+    }
+
+    default:
+      return state;
+  }
+}
+
+export function myDataWatcher(state, action) {
+  switch (action.type) {
+    case THIRD_PARTY_ACTION: {
+      return loadMyData();
+    }
+  }
+}
+
+function myDataLoaded(data) {
+  return { type: MY_DATA_LOADED, payload: data };
+}
+
+function loadMyData() {
+  return async dispatch => {
+    const response = await fetch("/my-data");
+    const data = await response.json();
+    
+    dispatch(myDataLoaded(data));
+  }
+}
+```
