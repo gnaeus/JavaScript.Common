@@ -46,6 +46,7 @@ export function myDataWatcher(state, action) {
   }
 }
 
+// action creators
 function myDataLoaded(data) {
   return { type: MY_DATA_LOADED, payload: data };
 }
