@@ -3,10 +3,10 @@ __`store.js`__
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
 import watcherMiddleware from "watcher-middleware";
-import myData, { myDataWatcher } from "./myData";
+import { myDataReducer, myDataWatcher } from "./myData";
 
 const rootReducer = combineReducers({
-  myData,
+  myData: myDataReducer,
 });
 
 const allWatchers = [
