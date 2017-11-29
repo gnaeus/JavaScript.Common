@@ -16,8 +16,8 @@ const allWatchers = [
 const store = createStore(
   rootReducer, initialState,
   applyMiddleware(
-    thunkMiddleware,
     watcherMiddleware(allWatchers),
+    thunkMiddleware,
   ),
 );
 ```
