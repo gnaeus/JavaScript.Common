@@ -3,10 +3,10 @@ __`store.js`__
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunkMiddleware from "redux-thunk";
 import watcherMiddleware from "watcher-middleware";
-import myData, { myDataWatcher } from "./myData";
+import { myDataReducer, myDataWatcher } from "./myData";
 
 const rootReducer = combineReducers({
-  myData,
+  myData: myDataReducer,
 });
 
 const allWatchers = [
@@ -16,8 +16,8 @@ const allWatchers = [
 const store = createStore(
   rootReducer, initialState,
   applyMiddleware(
-    thunkMiddleware,
     watcherMiddleware(allWatchers),
+    thunkMiddleware,
   ),
 );
 ```
@@ -25,6 +25,7 @@ __`myData/index.js`__
 ```js
 const MY_DATA_LOADED = "MY_DATA_LOADED";
 
+// (state, action) => nextState
 export function myDataReducer(state = null, action) {
   switch (action.type) {
     case MY_DATA_LOADED: {
@@ -36,6 +37,7 @@ export function myDataReducer(state = null, action) {
   }
 }
 
+// (state, action) => nextAction
 export function myDataWatcher(state, action) {
   switch (action.type) {
     case THIRD_PARTY_ACTION: {
@@ -44,6 +46,7 @@ export function myDataWatcher(state, action) {
   }
 }
 
+// action creators
 function myDataLoaded(data) {
   return { type: MY_DATA_LOADED, payload: data };
 }
