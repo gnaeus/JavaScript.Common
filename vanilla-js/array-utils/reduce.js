@@ -75,6 +75,30 @@ export const toDictionary = (keySelector, valueSelector = identity) => (result, 
   return result;
 };
 
+export const maxBy = (selector) => {
+  let max;
+  return (result, item) => {
+    const value = selector(item);
+    if (max >= value) {
+      return result;
+    }
+    max = value;
+    return item;
+  }
+}
+
+export const minBy = (selector) => {
+  let min;
+  return (result, item) => {
+    const value = selector(item);
+    if (min <= value) {
+      return result;
+    }
+    min = value;
+    return item;
+  }
+}
+
 export const takeWhile = (predicate) => (result, item, i) => {
   if (result.length === i && predicate(item, i)) {
     result.push(item);

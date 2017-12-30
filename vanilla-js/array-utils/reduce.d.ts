@@ -27,6 +27,14 @@ export declare function toDictionary<T, U = T>(
   valueSelector?: ((item: T) => U)
 ): (result: StringMap<U>, item: T) => StringMap<U>;
 
+export declare function maxBy<T>(
+  selector: ((item: T) => any)
+): (result: T, item: T) => T;
+
+export declare function minBy<T>(
+  selector: ((item: T) => any)
+): (result: T, item: T) => T;
+
 export declare function takeWhile<T>(
   predicate: ((item: T) => boolean)
 ): (result: T[], item: T) => T[];
