@@ -22,13 +22,28 @@ export const desc = (selector) => {
   };
 };
 
-export const by = (...comparers) => (left, right) => {
-  const length = comparers.length;
-  for (let i = 0; i < length; i++) {
-    const num = comparers[i](left, right);
-    if (num) {
-      return num;
-    }
+export const by = (...comparers) => {
+  const [first, second, third] = comparers;
+
+  switch (comparers.length) {
+    case 1:
+      return first;
+    case 2:
+      return (left, right) => first(left, right) || second(left, right);
+    case 3:
+      return (left, right) =>
+        first(left, right) || second(left, right) || third(left, right);
   }
-  return 0;
-}
+
+  return (left, right) => {
+    const length = comparers.length
+    for (let i = 0; i < length; i++) {
+      const num = comparers[i](left, right);
+      if (num) {
+        return num;
+      }
+    }
+    return 0;
+  };
+};
+

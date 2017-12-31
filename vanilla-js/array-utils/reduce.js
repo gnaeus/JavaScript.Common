@@ -1,25 +1,34 @@
 /* eslint-disable */
 const identity = x => x;
 
-export const distinct = (comparer) => {
-  if (typeof comparer === 'undefined') {
-    return (result, item) => {
-      if (result.lastIndexOf(item) === -1) {
-        result.push(item);
-      }
-      return result;
-    };
-  }
-  return (result, item) => {
-    let i = result.length;
-    while (i--) {
-      if (comparer(result[i], item)) {
-        return result;
-      }
-    }
+export const distinct = () => (result, item) => {
+  if (result.lastIndexOf(item) === -1) {
     result.push(item);
+  }
+  return result;
+};
+
+export const distinctBy = (selector) => {
+  const keys = [];
+  return (result, item) => {
+    const key = selector(item);
+    if (keys.lastIndexOf(key) === -1) {
+      keys.push(key);
+      result.push(item);
+    }
     return result;
-  };
+  }
+};
+
+export const distinctWith = (comparer) => (result, item) => {
+  let i = result.length;
+  while (i--) {
+    if (comparer(result[i], item)) {
+      return result;
+    }
+  }
+  result.push(item);
+  return result;
 };
 
 export const flatten = () => (result, item) => {
@@ -107,7 +116,7 @@ export const takeWhile = (predicate) => (result, item, i) => {
 };
 
 export const skipWhile = (predicate) => (result, item, i) => {
-  if (result.length !== 0 || !predicate(item, i)) {
+  if (result.length > 0 || !predicate(item, i)) {
     result.push(item);
   }
   return result;
