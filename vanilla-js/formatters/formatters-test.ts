@@ -1,17 +1,13 @@
-jest.unmock("./formatters.ts");
-
-import * as formatters from "./formatters.ts";
+import { formatFileSize, formatIntervalDuration }from "./formatters";
 
 describe("formatFileSize", () => {
-  const formatFileSize = formatters.formatFileSize;
-
   it("should throw with non-number arhument", () => {
     expect(() => {
       formatFileSize({} as any);
-    }).toThrow(new Error("Argument: size is not a number"));
+    }).toThrow("Argument: size is not a number");
     expect(() => {
       formatFileSize("test" as any);
-    }).toThrow(new Error("Argument: size is not a number"));
+    }).toThrow("Argument: size is not a number");
   });
 
   it("should format to three digits", () => {
@@ -40,8 +36,6 @@ describe("formatFileSize", () => {
 });
 
 describe("formatIntervalDuration", () => {
-  const formatIntervalDuration = formatters.formatIntervalDuration;
-
   it("should format duration", () => {
     let duration = formatIntervalDuration(
       new Date(2014, 8 /*сентябрь*/, 17, 18, 0),

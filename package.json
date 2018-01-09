@@ -1,0 +1,34 @@
+{
+  "name": "javascript.common",
+  "version": "1.0.0",
+  "description": "Assets for JavaScript projects",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnaeus/JavaScript.Common.git"
+  },
+  "author": "Dmitry Panyushkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gnaeus/JavaScript.Common/issues"
+  },
+  "homepage": "https://github.com/gnaeus/JavaScript.Common#readme",
+  "devDependencies": {
+    "@types/jest": "^21.1.10",
+    "jest": "^21.2.1",
+    "ts-jest": "^21.2.4",
+    "typescript": "^2.6.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "transform": {
+      ".*\\.(js|ts)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "tests?\\.(js|ts)$"
+  }
+}

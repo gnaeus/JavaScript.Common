@@ -1,10 +1,6 @@
-jest.unmock("./utils.ts");
-
-import * as utils from "./utils.ts";
+import { toQueryString } from "./utils";
 
 describe("toQueryString", () => {
-  const toQueryString = utils.toQueryString;
-
   it("should serialize plain objects", () => {
     const query = toQueryString({ id: 1, name: "plain" });
     expect(query).toBe("id=1&name=plain");
@@ -40,15 +36,15 @@ describe("toQueryString", () => {
   it("should throw with non-object arhument", () => {
     expect(() => {
       toQueryString(void 0);
-    }).toThrow(new Error("Argument: obj is not an Object"));
+    }).toThrow("Argument: obj is not an Object");
     expect(() => {
       toQueryString(true);
-    }).toThrow(new Error("Argument: obj is not an Object"));
+    }).toThrow("Argument: obj is not an Object");
     expect(() => {
       toQueryString(100);
-    }).toThrow(new Error("Argument: obj is not an Object"));
+    }).toThrow("Argument: obj is not an Object");
     expect(() => {
       toQueryString("string");
-    }).toThrow(new Error("Argument: obj is not an Object"));
+    }).toThrow("Argument: obj is not an Object");
   });
 });
