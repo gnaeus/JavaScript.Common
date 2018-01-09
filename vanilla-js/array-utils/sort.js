@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 export const asc = (selector) => {
   if (typeof selector === 'undefined') {
     return (l, r) => l < r ? -1 : l > r ? 1 : 0;
@@ -36,7 +34,7 @@ export const by = (...comparers) => {
   }
 
   return (left, right) => {
-    const length = comparers.length
+    const length = comparers.length;
     for (let i = 0; i < length; i++) {
       const num = comparers[i](left, right);
       if (num) {
@@ -46,4 +44,3 @@ export const by = (...comparers) => {
     return 0;
   };
 };
-

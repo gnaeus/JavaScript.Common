@@ -1,13 +1,3 @@
-export declare function distinct<T>(): (result: T[], item: T) => T[];
-
-export declare function distinctBy<T>(
-  selector: (item: T) => any
-): (result: T[], item: T) => T[];
-
-export declare function distinctWith<T>(
-  comparer: (a: T, b: T) => boolean
-): (result: T[], item: T) => T[];
-
 export declare function flatten<T>(): (result: T[], item: T[]) => T[];
 
 export declare function groupBy<T, K, U = T>(
@@ -40,14 +30,6 @@ export declare function maxBy<T>(
 export declare function minBy<T>(
   selector: (item: T) => any
 ): (result: T, item: T) => T;
-
-export declare function takeWhile<T>(
-  predicate: (item: T) => boolean
-): (result: T[], item: T) => T[];
-
-export declare function skipWhile<T>(
-  predicate: (item: T) => boolean
-): (result: T[], item: T) => T[];
 
 interface Grouping<K, T> extends Array<T> {
   readonly key: K;
