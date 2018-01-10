@@ -1,3 +1,8 @@
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Create a duplicate-free version of an array,
+ * in which only the first occurrence of each element is kept.
+ */
 export const distinct = () => {
   const keys = [];
   return (item) => {
@@ -9,6 +14,11 @@ export const distinct = () => {
   };
 };
 
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Create a duplicate-free version of an array, using value returned by selector function
+ * for equality comparisons, in which only the first occurrence of each element is kept.
+ */
 export const distinctBy = (selector) => {
   const keys = [];
   return (item) => {
@@ -21,6 +31,11 @@ export const distinctBy = (selector) => {
   };
 };
 
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Create a duplicate-free version of an array, using comparer function
+ * for equality comparisons, in which only the first occurrence of each element is kept.
+ */
 export const distinctWith = (comparer) => {
   const keys = [];
   return (item) => {
@@ -35,11 +50,20 @@ export const distinctWith = (comparer) => {
   };
 };
 
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Return elements from an array as long as a specified condition is true.
+ */
 export const takeWhile = (predicate) => {
   let shouldTake = true;
   return (item, i) => shouldTake && (shouldTake = predicate(item, i));
 };
 
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Bypass elements in a sequence as long as a specified condition is true
+ * and then return the remaining elements.
+ */
 export const skipWhile = (predicate) => {
   let shouldTake = false;
   return (item, i) => shouldTake || (shouldTake = !predicate(item, i));

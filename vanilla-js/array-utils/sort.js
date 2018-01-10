@@ -1,3 +1,7 @@
+/**
+ * Creates a comparsion function for Array `.sort()` that:
+ * Compares values returned by selector function in ascending order.
+ */
 export const asc = (selector) => {
   if (typeof selector === 'undefined') {
     return (l, r) => l < r ? -1 : l > r ? 1 : 0;
@@ -9,6 +13,10 @@ export const asc = (selector) => {
   };
 };
 
+/**
+ * Creates a comparsion function for Array `.sort()` that:
+ * Compares values returned by selector function in descending order.
+ */
 export const desc = (selector) => {
   if (typeof selector === 'undefined') {
     return (l, r) => l < r ? 1 : l > r ? -1 : 0;
@@ -20,6 +28,10 @@ export const desc = (selector) => {
   };
 };
 
+/**
+ * Creates a comparsion function for Array `.sort()` that:
+ * Combines multiple other comparsion functions.
+ */
 export const by = (...comparers) => {
   const [first, second, third] = comparers;
 

@@ -74,6 +74,17 @@ describe('groupBy', () => {
       ['Jack', 'Olivia'],
     ]);
   });
+
+  it('should require initialValue', () => {
+    // @ts-ignore
+    expect(() => [1, 2, 3].reduce(groupBy(i => i)))
+      .toThrow('initialValue should be an Array');
+  });
+
+  it('should require Array as initialValue', () => {
+    expect(() => [1, 2, 3].reduce(groupBy(i => i), {}))
+      .toThrow('initialValue should be an Array');
+  });
 });
 
 describe('toLookup', () => {
@@ -114,6 +125,17 @@ describe('toLookup', () => {
       21: ['Jack', 'Olivia'],
     });
   });
+
+  it('should require initialValue', () => {
+    // @ts-ignore
+    expect(() => [1, 2, 3].reduce(toLookup(i => i)))
+      .toThrow('initialValue should be an Object');
+  });
+
+  it('should require Object as initialValue', () => {
+    expect(() => [1, 2, 3].reduce(toLookup(i => i), []))
+      .toThrow('initialValue should be an Object');
+  });
 });
 
 describe('toDictionary', () => {
@@ -143,6 +165,17 @@ describe('toDictionary', () => {
       18: 'Oliver',
       21: 'Jack',
     });
+  });
+
+  it('should require initialValue', () => {
+    // @ts-ignore
+    expect(() => [1, 2, 3].reduce(toDictionary(i => i)))
+      .toThrow('initialValue should be an Object');
+  });
+
+  it('should require Object as initialValue', () => {
+    expect(() => [1, 2, 3].reduce(toDictionary(i => i), []))
+      .toThrow('initialValue should be an Object');
   });
 });
 
