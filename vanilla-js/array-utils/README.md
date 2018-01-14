@@ -20,6 +20,8 @@
 * [desc](#desc)
 * [by](#by)
 
+### [Update Array](#update)
+
 <br>
 
 ## Array.prototype.filter
@@ -292,4 +294,34 @@ arr.sort(by(
 //   { name: 'Alice', age: 20 },
 //   { name: 'Bob', age: 30 },
 // ];
+```
+
+## <a name="update"></a> Update Array
+Updates the array of some class instances from an array
+of some plain objects with matching keys.
+
+```js
+import { update } from './update';
+
+interface Model {
+  id: number;
+  text: string;
+}
+
+class Entity {
+  id: number;
+  text: string;
+}
+
+let entities: Entity[];
+let models: Model[];
+
+update(entities)
+  .from(models)
+  .withKeys(e => e.id, m => m.id)
+  .mapValues((e = new Entity(), m) => {
+    e.id = m.id;
+    e.text = m.text;
+    return e;
+  });
 ```
