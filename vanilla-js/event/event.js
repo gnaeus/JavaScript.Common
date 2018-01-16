@@ -9,13 +9,14 @@ export function event() {
     listeners.slice().forEach(handler => {
       handler(...args);
     });
-  }
+  };
 
   e.attach = handler => {
     listeners.push(handler);
   };
 
   e.detach = handler => {
+    // eslint-disable-next-line no-bitwise
     listeners.splice(listeners.indexOf(handler) >>> 0, 1);
   };
 
