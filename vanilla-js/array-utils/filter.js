@@ -4,12 +4,22 @@
  * in which only the first occurrence of each element is kept.
  */
 export const distinct = () => {
-  const keys = [];
+  if (typeof Set === 'undefined') {
+    const keys = [];
+    return (item) => {
+      if (keys.lastIndexOf(item) !== -1) {
+        return false;
+      }
+      keys.push(item);
+      return true;
+    };
+  }
+  const keySet = new Set();
   return (item) => {
-    if (keys.lastIndexOf(item) !== -1) {
+    if (keySet.has(item)) {
       return false;
     }
-    keys.push(item);
+    keySet.add(item);
     return true;
   };
 };
@@ -20,13 +30,24 @@ export const distinct = () => {
  * for equality comparisons, in which only the first occurrence of each element is kept.
  */
 export const distinctBy = (selector) => {
-  const keys = [];
+  if (typeof Set === 'undefined') {
+    const keys = [];
+    return (item) => {
+      const key = selector(item);
+      if (keys.lastIndexOf(key) !== -1) {
+        return false;
+      }
+      keys.push(key);
+      return true;
+    };
+  }
+  const keySet = new Set();
   return (item) => {
     const key = selector(item);
-    if (keys.lastIndexOf(key) !== -1) {
+    if (keySet.has(key)) {
       return false;
     }
-    keys.push(key);
+    keySet.add(key);
     return true;
   };
 };
@@ -48,6 +69,18 @@ export const distinctWith = (comparer) => {
     keys.push(item);
     return true;
   };
+};
+
+/**
+ * Creates a predicate function for Array `.filter()` to:
+ * Exclude all given values from an array.
+ */
+export const without = (values) => {
+  if (typeof Set === 'undefined') {
+    return (item) => values.indexOf(item) === -1;
+  }
+  const set = new Set(values);
+  return (item) => !set.has(item);
 };
 
 /**
