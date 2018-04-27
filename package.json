@@ -16,10 +16,10 @@
   },
   "homepage": "https://github.com/gnaeus/JavaScript.Common#readme",
   "devDependencies": {
-    "@types/jest": "^21.1.10",
-    "jest": "^21.2.1",
-    "ts-jest": "^21.2.4",
-    "typescript": "^2.6.2"
+    "@types/jest": "^22.2.3",
+    "jest": "^22.4.3",
+    "ts-jest": "^22.4.4",
+    "typescript": "^2.8.3"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -27,7 +27,7 @@
       "ts"
     ],
     "transform": {
-      ".*\\.(js|ts)$": "./node_modules/ts-jest/preprocessor.js"
+      "^.+\\.(js|ts)$": "ts-jest"
     },
     "testRegex": "tests?\\.(js|ts)$"
   }
