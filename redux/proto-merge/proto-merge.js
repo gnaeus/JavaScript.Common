@@ -5,7 +5,7 @@ export function protoMerge(source, changes, mergeThreshold = 100) {
   let result;
   const proto = Object.getPrototypeOf(source);
 
-  if (proto === Object.prototype || proto == null) {
+  if (proto === Object.prototype || proto === null) {
     // если source создан как object literal - то просто наследуемся от него
     result = Object.create(source);
   } else {
