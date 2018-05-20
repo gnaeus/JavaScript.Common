@@ -45,6 +45,20 @@ function authorReducer(state = initialState, action) {
   }
 }
 
+// postReducer.js
+const initialState = {
+  isArchived: false,
+  author: null,
+  getAuthor: entitySelector("author", (state, id) => state.entities.authors[id])
+};
+
+function postReducer(state = initialState, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
+
 // authorActions.js
 function removeArchivedPosts(author) {
   return (dispatch, getState) => {
@@ -59,20 +73,6 @@ function removePosts(author, posts) {
     type: REMOVE_POSTS,
     authorId: author.id,
     postIds: posts.map(post => post.id)
-  }
-}
-
-// postReducer.js
-const initialState = {
-  isArchived: false,
-  author: null,
-  getAuthor: entitySelector("author", (state, id) => state.entities.authors[id])
-};
-
-function postReducer(state = initialState, action) {
-  switch (action.type) {
-    default:
-      return state;
   }
 }
 ```
