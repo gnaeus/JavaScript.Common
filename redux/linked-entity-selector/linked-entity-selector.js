@@ -28,8 +28,11 @@ export function entitySelector(propertyName, getCollection, getEntity) {
   const weakMap = typeof WeakMap === "function" && new WeakMap();
   const __propertyName = "__" + propertyName;
 
-  return state => {
-    const propertyValue = this[propertyName];
+  return function(state, entity) {
+    if (arguments.length === 1) {
+      entity = this;
+    }
+    const propertyValue = entity[propertyName];
     if (propertyValue == null) {
       return propertyValue;
     }
@@ -44,10 +47,10 @@ export function entitySelector(propertyName, getCollection, getEntity) {
     let cacheEntry;
     if (weakMap) {
       // cache results in associated WeakMap
-      let cacheObject = weakMap.get(this);
+      let cacheObject = weakMap.get(entity);
       if (!cacheObject) {
         cacheObject = {};
-        weakMap.set(this, cacheObject);
+        weakMap.set(entity, cacheObject);
       }
       cacheEntry = cacheObject[propertyName];
       if (!cacheEntry) {
@@ -56,10 +59,10 @@ export function entitySelector(propertyName, getCollection, getEntity) {
       }
     } else {
       // cache result in non-enumerable hidden property of `this` object
-      cacheEntry = this[__propertyName];
+      cacheEntry = entity[__propertyName];
       if (!cacheEntry) {
         cacheEntry = { state: null, value: null };
-        Object.defineProperty(this, __propertyName, { value: cacheEntry });
+        Object.defineProperty(entity, __propertyName, { value: cacheEntry });
       }
     }
 
