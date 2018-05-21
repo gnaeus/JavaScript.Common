@@ -34,7 +34,7 @@ export function entitySelector(propertyName, getCollection, getEntity) {
       .slice(2)}`;
   }
 
-  return function(state, entity) {
+  return function selector(state, entity) {
     if (arguments.length === 1) {
       entity = this;
     }
