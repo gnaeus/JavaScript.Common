@@ -92,13 +92,6 @@ export function entitySelector(propertyName, getCollection, getEntity) {
   };
 }
 
-/**
- * Redux Middleware for getting root state in reducers
- */
-export const getStateMiddleware = store => next => action => {
-  next({ ...action, getState: store.getState });
-};
-
 let PRODUCTON = false;
 try {
   // @ts-ignore
