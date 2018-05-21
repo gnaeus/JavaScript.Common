@@ -25,8 +25,14 @@ export function entitySelector(propertyName, getCollection, getEntity) {
     };
   }
 
-  const weakMap = typeof WeakMap === "function" && new WeakMap();
-  const __propertyName = "__" + propertyName;
+  let weakMap, __propertyName;
+  if (typeof WeakMap === "function") {
+    weakMap = new WeakMap();
+  } else {
+    __propertyName = `__${propertyName}__${Math.random()
+      .toString(36)
+      .slice(2)}`;
+  }
 
   return function(state, entity) {
     if (arguments.length === 1) {
