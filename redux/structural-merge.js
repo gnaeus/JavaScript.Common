@@ -5,8 +5,8 @@ export function structuralMerge(left, right) {
   if (left === right) {
     return right;
   }
-  if (isObject(right)) {
-    if (!isObject(left)) {
+  if (isPlainObject(right)) {
+    if (!isPlainObject(left)) {
       return right;
     }
     const result = {};
@@ -38,6 +38,10 @@ export function structuralMerge(left, right) {
   return left;
 }
 
-function isObject(arg) {
-  return arg && typeof arg === "object" && !Array.isArray(arg);
+function isPlainObject(arg) {
+  if (arg && typeof arg === "object" && !Array.isArray(arg)) {
+    const prototype = Object.getPrototypeOf(arg);
+    return prototype === Object.prototype || prototype === null;
+  }
+  return false;
 }
