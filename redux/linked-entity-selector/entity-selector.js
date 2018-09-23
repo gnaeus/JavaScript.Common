@@ -15,10 +15,10 @@ export default function(fieldName, getTable) {
         return table[fieldValue];
       }
 
-      let cacheEntry = weakMap.get(entity);
+      let cacheEntry = weakMap.get(fieldValue);
       if (!cacheEntry) {
         cacheEntry = { table: null, value: null };
-        weakMap.set(entity, cacheEntry);
+        weakMap.set(fieldValue, cacheEntry);
       }
 
       if (cacheEntry.table === table) {
