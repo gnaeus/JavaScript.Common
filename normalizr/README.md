@@ -1,4 +1,6 @@
 
+ * Deep merge `Object` fields.
+ * Preserve `null`s not only in Enitty but also in nested Object.
 
 ```js
 import { schema } from "normalizr"
