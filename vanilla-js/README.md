@@ -51,3 +51,6 @@ Returns Promise that resolved when `selector` will be inserted to `container`.
 __`function zIndexMaxInContext(node: Element): number`__  
 Максимальное значение `z-index` внутри контекста наложения, к которому принадлежит `node`.  
 Значения `z-index` в других контекстах наложения игнорируются.
+
+__`function setEquals(first: any[], second: any[]): boolean`__
+Check if two arrays contains the same set of elements.
