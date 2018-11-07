@@ -61,7 +61,7 @@ export function ensureSuccessStatusCode(response: Response): void {
 
 export function getJsonOrThrow<TResult>(response: Response): Promise<TResult> {
   ensureSuccessStatusCode(response);
-  return response.json<TResult>();
+  return response.json();
 }
 
 /**
