@@ -7,17 +7,20 @@ import { schema } from "normalizr"
 import { ObjectSchema } from "./object-schema";
 import { structuralMerge } from "./structural-merge";
 
+// or import patch for schema.Object
+import "./object-schema-fix";
+
 // deep merge `Object` fields
-const User = new schema.Entity("users" {}, { mergeStrategy: structuralMerge }});
+const User = new schema.Entity("users", {}, { mergeStrategy: structuralMerge }});
 
 // preserve `null`s not only in Enitty but also in nested Object
 const UserDetails = new ObjectSchema({});
 
-user.define({
+User.define({
   details: UserDetails
 });
 
-user.Details.define({
+UserDetails.define({
   bestFriend: User,
   followers: [User],
   following: [User]
