@@ -1,7 +1,7 @@
 import { denormalize, schema } from "normalizr";
 
 /**
- * Denormalize all entities.
+ * Denormalize entire `entities` object.
  * @param {Object} entities Normalized entities
  * @param {schema.Entity[]} entitySchemas Entity schemas
  * @example
