@@ -23,8 +23,8 @@ class View {
 ```
 
 ## dumb-action
-Very dumb drop-in replacement for `mobx` and `mobx-react`.
-Only two decorators: `@observer` and `@action`.
+Very dumb drop-in replacement for `mobx` and `mobx-react`.  
+Only two decorators: `@observer` and `@action`.  
 An `@action` calls `forceUpdate()` only on topmost `@observer`.
 
 ```jsx
