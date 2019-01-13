@@ -20,17 +20,21 @@ query {
 }
 ```
 ```js
-import { promisify } from "util";
-import { Database } from "sqlite3";
 import { groupBy } from "lodash/fp"
 import graphqlFields from "graphql-fields";
 import dataLoader from "./dataloader";
 
-const db = new Database(":memory");
-const query = promisify(db.all);
+// Query resolver
+export const Query = {
+  // from MongoDB
+  async posts(_, args, context) {
+    return context.mongo.collection("posts").find().limit(args.top).toArray();
+  }
+}
 
-// Resolver for `Post`
-const Post = {
+// Post resolver
+export const Post = {
+  // from REST
   async author(post, args, context, info) {
     const userLoader = dataLoader(info, "id", ids =>
       fetch(`/users/ids=${ids.join(",")}`).then(r => r.json())
@@ -38,10 +42,11 @@ const Post = {
     return await userLoader.load(post.authorId);
   },
 
-  async comments(post, { top }, context, info) {
+  // from SQLite
+  async comments(post, args, context, info) {
     const commentsLoader = dataLoader(info, async postIds => {
       const fields = Object.keys(graphqlFields(info));
-      const rows = await query(`
+      const rows = await context.sql(`
       SELECT postId, ${fields.join()}
       FROM comments AS c
       WHERE c.postId IN (${postIds.join()})
@@ -50,7 +55,7 @@ const Post = {
         FROM comments AS c2
         WHERE c2.postId = c.postId
         ORDER BY c2.rating DESC
-        LIMIT ${top}
+        LIMIT ${args.top}
       )`);
       const commentsByPost = groupBy(rows, "postId");
       return postIds.map(postId => commentsByPost[postId] || []);
