@@ -6,7 +6,7 @@ function dataLoader(
 ): DataLoader;
 ```
 
-```
+```graphql
 query {
   posts(top: 10) {
     title
