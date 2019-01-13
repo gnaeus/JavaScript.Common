@@ -10,6 +10,7 @@ function dataLoader(
 query {
   posts(top: 10) {
     title
+    date
     author {
       name
     }
@@ -29,7 +30,8 @@ import dataLoader from "./dataloader";
 export const Query = {
   // from MongoDB
   async posts(_, args, context) {
-    return context.mongo.collection("posts").find().limit(args.top).toArray();
+    return await context.mongo.collection("posts")
+      .find().sort({ date: -1 }).limit(args.top).toArray();
   }
 }
 
