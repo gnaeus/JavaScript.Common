@@ -1,4 +1,5 @@
-Create separate `DataLoader` for each field resolver by caching it in `info` argument.
+### Create separate `DataLoader` for each field resolver by caching it in `info` argument.
+
 ```js
 function dataLoader(
   info: Object, keyAttr?: string | Function, batchLoad: Function
