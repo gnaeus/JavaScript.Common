@@ -1,5 +1,5 @@
 
-## Execude only one async function while lock is acquired. Other functions are queued.
+## Execute only one `async` function while lock is acquired. Other functions are queued.
 
 ```js
 import AsyncLock from "async-lock";
