@@ -5,6 +5,11 @@
 
 ### __`useFactory(factory, args?)`__
 
+React Hook для внедрения значения-зависимости, созданного с помощбю фабрики:
+- в props Functional компонента
+- или в конструктор другого класса-зависимости
+- или в аргументы для фабрики зависимости
+
 ```jsx
 const TodoModel = () => observable({
   todoItems: []
@@ -39,11 +44,6 @@ const TodoList = ({
 
 export default observer(TodoList);
 ```
-
-React Hook для внедрения значения-зависимости, созданного с помощбю фабрики:
-- в props Functional компонента
-- или в конструктор другого класса-зависимости
-- или в аргументы для фабрики зависимости
 
 ### __`useService(constructor, args?)`__
 
@@ -82,7 +82,9 @@ const App = () => <TodoList />;
 export default withProvider(TodoModel, TodoService)(App);
 ```
 
-### Переопределение зависимостей в runtime: опциональный аргумент __`args`__
+### Опциональный аргумент __`args`__
+
+Служит для переопределение зависимостей в runtime
 
 ```jsx
 const = TodoProvider(
