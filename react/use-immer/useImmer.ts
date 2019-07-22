@@ -48,6 +48,7 @@ export function transaction(action: () => void) {
     mutations.forEach((setState, stateRef) => {
       setState(stateRef.current);
     });
+    mutations.clear();
   }
 }
 
