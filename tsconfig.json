@@ -4,10 +4,12 @@
     "checkJs": true,
     "target": "es5",
     "module": "esnext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react",
@@ -18,6 +20,7 @@
       "es2015.promise",
       "es2015.collection",
       "es2015.symbol",
+      "es2015.iterable",
       "scripthost"
     ],
     "outDir": "dist"
