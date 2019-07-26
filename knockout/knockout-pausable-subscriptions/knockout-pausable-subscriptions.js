@@ -1,5 +1,7 @@
+// @ts-ignore
 var baseSubscribe = ko.subscribable.fn.subscribe;
 
+// @ts-ignore
 ko.subscribable.fn.subscribe = function(callback, context, event) {
   var paused = false;
   var pause = function() {

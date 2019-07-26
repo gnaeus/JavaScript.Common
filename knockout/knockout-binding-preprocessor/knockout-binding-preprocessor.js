@@ -1,3 +1,4 @@
+// @ts-ignore
 ko.bindingProvider.instance.preprocessNode = function(node) {
   if (node.nodeType === 1) {
     var attributes = node.attributes;
